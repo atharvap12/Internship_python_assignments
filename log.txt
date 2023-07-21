@@ -1,0 +1,10 @@
+2023-07-18 15:37:28,665 : __main__ : DEBUG : Calling my_func(5)
+2023-07-18 15:37:28,672 : __main__ : DEBUG : my_func returned 10 in 0.005404399998951703 seconds
+2023-07-18 15:37:28,672 : __main__ : DEBUG : Calling fib_func(5)
+2023-07-18 15:37:28,680 : __main__ : DEBUG : fib_func returned [0, 1, 1, 2, 3] in 0.00742079999690759 seconds
+2023-07-18 15:51:34,774 : __main__ : DEBUG : Calling my_func(5)
+2023-07-18 15:51:34,781 : __main__ : DEBUG : my_func returned 10 in 0.004873800000495976 seconds
+2023-07-18 15:51:34,781 : __main__ : DEBUG : Calling fib_func(5)
+2023-07-18 15:51:34,787 : __main__ : DEBUG : fib_func returned [0, 1, 1, 2, 3] in 0.006100999999034684 seconds
+2023-07-18 15:51:34,787 : __main__ : DEBUG : Calling jkl('ath', 10, 3, 6, a = 9)
+2023-07-18 15:51:34,791 : __main__ : DEBUG : jkl returned None in 0.0035701999986486044 seconds
