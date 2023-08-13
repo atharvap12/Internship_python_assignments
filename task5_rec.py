@@ -8,7 +8,7 @@ def is_sorted(ds):
 def all_subsets(indx, ds, ol, ml):
     if indx == len(ol):
         if (is_sorted(ds)):
-            print(str(ds) + " : " + str(len(ds)))
+            #print(str(ds) + " : " + str(len(ds)))
             ml = max(ml,len(ds))
             
         return ml
