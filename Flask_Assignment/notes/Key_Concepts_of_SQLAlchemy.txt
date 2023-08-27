@@ -1,0 +1,183 @@
+1. SQL Expression Language:
+SQLAlchemy provides an SQL Expression Language, which allows you to build SQL queries using Python objects and methods. 
+This makes writing SQL queries more intuitive and Pythonic.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+
+from sqlalchemy import create_engine, select, func
+from sqlalchemy.orm import sessionmaker
+
+# Create an SQLite in-memory database
+engine = create_engine('sqlite:///:memory:', echo=True)
+
+# Define a table
+from sqlalchemy import Table, Column, Integer, String, MetaData
+metadata = MetaData()
+users = Table('users', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('name', String),
+    Column('age', Integer)
+)
+
+# Insert data
+conn = engine.connect()
+conn.execute(users.insert().values(name='Alice', age=25))
+conn.execute(users.insert().values(name='Bob', age=30))
+
+# Select data using SQLAlchemy's SQL Expression Language
+stmt = select([users.c.name, users.c.age]).where(users.c.age > 25)
+result = conn.execute(stmt)
+for row in result:
+    print(row)
+
+------------------------------------------CODE----------------------------------------------------
+
+
+
+2. ORM (Object-Relational Mapping):
+SQLAlchemy's ORM allows you to define Python classes that map to database tables. These classes are used to interact with the database,
+and you can perform CRUD operations using Python methods.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    age = Column(Integer)
+
+# Creating a new user
+new_user = User(name='Charlie', age=28)
+
+# Adding and committing to the database
+session.add(new_user)
+session.commit()
+
+# Querying the database
+user = session.query(User).filter_by(name='Charlie').first()
+print(user.name, user.age)
+
+------------------------------------------CODE----------------------------------------------------
+
+
+3. Session:
+The Session in SQLAlchemy is an object that provides a transactional environment for interactions with the database. 
+It tracks changes to objects and applies them to the database when you commit the session.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+from sqlalchemy.orm import sessionmaker
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# Creating and adding a new user
+new_user = User(name='Diana', age=22)
+session.add(new_user)
+
+# Committing changes to the database
+session.commit()
+
+# Querying the database
+user = session.query(User).filter_by(name='Diana').first()
+print(user.name, user.age)
+
+# Modifying and committing changes
+user.age = 23
+session.commit()
+
+------------------------------------------CODE----------------------------------------------------
+
+
+Other Important Concepts:
+4. Relationships:
+SQLAlchemy supports defining relationships between tables using ForeignKey and relationship constructs. This helps you establish connections 
+between related data.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+
+class Address(Base):
+    __tablename__ = 'addresses'
+    id = Column(Integer, primary_key=True)
+    street = Column(String)
+    user_id = Column(Integer, ForeignKey('users.id'))
+
+class User(Base):
+    # ...
+    addresses = relationship("Address", back_populates="user")
+
+# Adding an address to a user
+new_address = Address(street='123 Main St.', user=user)
+session.add(new_address)
+session.commit()
+
+------------------------------------------CODE----------------------------------------------------
+
+
+5. Querying and Filtering:
+SQLAlchemy provides a powerful query API to construct complex queries using Python methods. You can filter, join, group, and order data 
+with ease.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+
+from sqlalchemy import and_ , or_
+
+# Query for users aged 25 or older and named 'Alice'
+users = session.query(User).filter(and_(User.age >= 25, User.name == 'Alice')).all()
+
+# Query for users aged 25 or older OR named 'Alice'
+users = session.query(User).filter(or_(User.age >= 25, User.name == 'Alice')).all()
+
+------------------------------------------CODE----------------------------------------------------
+
+
+6. Transactions and Rollbacks:
+The session provides a way to manage transactions. You can commit changes to the database using session.commit() or discard changes using 
+session.rollback().
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+
+try:
+    new_user = User(name='Eve', age=27)
+    session.add(new_user)
+    session.commit()
+except Exception as e:
+    session.rollback()
+    print("Error:", e)
+
+------------------------------------------CODE----------------------------------------------------
+
+
+These concepts are essential building blocks of SQLAlchemy. They allow you to interact with databases in a more Pythonic and intuitive manner,
+abstracting away much of the complexity of raw SQL operations. As you become more familiar with these concepts, you'll find yourself writing 
+cleaner, more maintainable database code in your Flask applications.
+
+
+
+
+

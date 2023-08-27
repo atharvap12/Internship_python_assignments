@@ -1,0 +1,204 @@
+The class Meta is a nested class within a Marshmallow schema that allows you to configure various options for your schema. It's used to 
+customize the behavior of your schema without cluttering the main class definition.
+
+Here are some common options you can define within the class Meta:
+
+1) Fields Mapping: You can define custom fields that map to specific fields in your data.
+2) Field Ordering: You can define the order in which fields should be serialized/deserialized.
+3) Model Binding: If you're using an ORM like SQLAlchemy, you can bind your schema to a database model.
+4) Additional Options: There are various other options like whether to include missing fields, to handle unknown fields, etc.
+
+Here are a few examples to illustrate the usage of class Meta:
+
+1) Example 1: Basic Usage
+
+--------------------------------CODE-----------------------------------
+
+from marshmallow import Schema, fields
+
+class UserSchema(Schema):
+    class Meta:
+        fields = ("username", "email")
+    
+    username = fields.String()
+    email = fields.Email()
+
+user_data = {"username": "john", "email": "john@example.com", "age": 30}
+user_schema = UserSchema()
+result = user_schema.load(user_data)
+print(result)  # Output: {'username': 'john', 'email': 'john@example.com'}
+
+--------------------------------CODE-------------------------------------
+
+In this example, we defined the fields option within class Meta to specify which fields should be included in the serialization. 
+Only username and email are included from the input data.
+
+
+2) Example 2: Field Ordering
+
+--------------------------------CODE-------------------------------------
+class BookSchema(Schema):
+    class Meta:
+        ordered = True
+    
+    title = fields.String()
+    author = fields.String()
+    published_year = fields.Integer()
+
+book_data = {"published_year": 2022, "title": "My Book", "author": "Alice"}
+book_schema = BookSchema()
+result = book_schema.dump(book_data)
+print(result)  # Output: {'title': 'My Book', 'author': 'Alice', 'published_year': 2022}
+
+--------------------------------CODE--------------------------------------
+
+Here, we set the ordered option within class Meta to True. This ensures that the fields will be serialized in 
+the order they are defined in the schema class.
+
+
+3) Example 3: Model Binding (SQLAlchemy)
+
+----------------------------------CODE---------------------------------------
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///:memory:')
+Session = sessionmaker(bind=engine)
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String)
+    email = Column(String)
+
+class UserSchema(Schema):
+    class Meta:
+        model = User
+
+user_schema = UserSchema()
+user = User(username='john', email='john@example.com')
+session = Session()
+session.add(user)
+session.commit()
+result = user_schema.dump(user)
+print(result)  # Output: {'email': 'john@example.com', 'id': 1, 'username': 'john'}
+
+----------------------------------CODE---------------------------------------
+
+In this example, we bound the schema to an SQLAlchemy model User. The schema automatically uses the model's attributes to determine the fields.
+
+
+The class Meta allows you to fine-tune the behavior of your Marshmallow schema according to your requirements. By utilizing class Meta, you 
+can make your code cleaner and more organized while customizing how your data is serialized and deserialized.
+
+-------------------------------------------------------------------------------
+
+Model Binding in Marshmallow with Flask-SQLAlchemy:
+
+Flask-SQLAlchemy is an extension for Flask that integrates SQLAlchemy, allowing you to work with databases in your Flask applications. 
+We'll use it to illustrate how model binding works in Marshmallow.
+
+Consider the scenario where you have a Flask application with Flask-SQLAlchemy set up and a database model for 
+storing information about books:
+
+----------------------------------CODE---------------------------------------
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from marshmallow import Schema, fields
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db'
+db = SQLAlchemy(app)
+
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    author = db.Column(db.String)
+    published_year = db.Column(db.Integer)
+
+db.create_all() #this should be done in a seperate python replica in the terminal within the same venv. The reason is just that it is a 
+#standard practice to keep database initialisation scripts isolated from the code. This line will create your sqlite database as a file at
+#the specified path along with all the models defined in the code. Each model represents a table in the sqlite database.
+
+----------------------------------CODE---------------------------------------
+
+Now, let's define a Marshmallow schema and bind it to the Book model using the model attribute within the class Meta:
+----------------------------------CODE---------------------------------------
+
+class BookSchema(Schema):
+    class Meta:
+        model = Book
+
+    id = fields.Integer(dump_only=True)
+    title = fields.String()
+    author = fields.String()
+    published_year = fields.Integer()
+
+----------------------------------CODE---------------------------------------
+
+In this example:
+
+i) We define a Flask application and set up Flask-SQLAlchemy with an SQLite database.
+ii) We define a database model Book using Flask-SQLAlchemy's db.Model.
+iii) We create a Marshmallow schema class BookSchema and bind it to the Book model using the model attribute within class Meta.
+iv) We define fields in the schema for each attribute of the Book model.
+v) The dump_only=True option is set for the id field to indicate that it should only be included during serialization and not deserialization.
+
+Now, let's see how you can use the schema to serialize and deserialize Book instances:
+----------------------------------CODE---------------------------------------
+
+from flask import jsonify
+
+# Create a new book
+new_book = Book(title='Flask Basics', author='Alice', published_year=2022)
+db.session.add(new_book)
+db.session.commit()
+
+# Serialize a book using the schema
+book_schema = BookSchema()
+serialized_book = book_schema.dump(new_book)
+print(serialized_book)
+
+# Deserialize data using the schema
+data = {'title': 'Advanced Flask', 'author': 'Bob', 'published_year': 2023}
+deserialized_book = book_schema.load(data)
+db.session.add(deserialized_book)
+db.session.commit()
+
+@app.route('/books/<int:book_id>')
+def get_book(book_id):
+    book = Book.query.get(book_id)
+    if book:
+        book_schema = BookSchema()
+        serialized_book = book_schema.dump(book)
+        return jsonify(serialized_book)
+    return jsonify({'message': 'Book not found'}), 404
+
+----------------------------------CODE---------------------------------------
+
+In this example:
+
+i) We create a new book and serialize it using the BookSchema.
+ii) We deserialize data from a dictionary and add it to the database using the schema.
+iii) We define a Flask route to retrieve book details by ID. The book instance is serialized using the schema before being returned as JSON.
+
+Using model binding with Marshmallow in conjunction with Flask-SQLAlchemy simplifies the serialization and deserialization process 
+while maintaining consistency between your data model and the schema. It's a powerful combination that streamlines working with databases 
+in Flask applications.
+
+Benefits of Model Binding:
+
+1) Automatic Field Inference: When a schema is bound to an SQLAlchemy model, Marshmallow automatically infers the fields from the model's 
+attributes, reducing redundancy in field definitions.
+2) Consistency: The schema definition mirrors the structure of the model, ensuring that serialized and deserialized data are consistent with 
+the model's structure.
+3) Simplified Serialization and Deserialization: You can easily serialize and deserialize model instances using the schema. Marshmallow handles
+converting between Python objects and database records.
+4) Validation: Marshmallow can apply validation rules defined in the schema to the data before saving it to the database, ensuring data 
+integrity.
+
+In summary, model binding in Marshmallow simplifies the process of interacting with databases when using SQLAlchemy. It allows you to define a 
+schema once and use it for both serializing and deserializing data between Python objects and database records, while also providing validation 
+and consistency benefits. This can lead to cleaner, more maintainable code when working with databases in your Flask applications

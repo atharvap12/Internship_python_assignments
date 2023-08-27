@@ -1,0 +1,96 @@
+[August 21, 2023 12:56:34 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 21, 2023 12:56:34 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275
+[August 21, 2023 12:57:01 India Standard Time] [INFO | application2] A user visited the home page >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:57:01 India Standard Time] [INFO | application2] path: / | method: GET | status: 200 OK | size: 12 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:57:01 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 12:57:01] "GET / HTTP/1.1" 200 -
+[August 21, 2023 12:57:42 India Standard Time] [INFO | application2] A user performed a POST operation succesfully. >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:57:42 India Standard Time] [INFO | application2] path: /todos | method: POST | status: 200 OK | size: 118 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:57:42 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 12:57:42] "POST /todos HTTP/1.1" 200 -
+[August 21, 2023 12:57:51 India Standard Time] [INFO | application2] A user performed a POST operation succesfully. >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:57:51 India Standard Time] [INFO | application2] path: /todos | method: POST | status: 200 OK | size: 118 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:57:51 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 12:57:51] "POST /todos HTTP/1.1" 200 -
+[August 21, 2023 12:58:00 India Standard Time] [INFO | application2] A user performed a POST operation with bad request body. | ValidationError: {'ID': ['This ID already exists. You must enter unique ID.']} >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:58:00 India Standard Time] [INFO | application2] path: /todos | method: POST | status: 400 BAD REQUEST | size: 74 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 12:58:00 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 12:58:00] "[31m[1mPOST /todos HTTP/1.1[0m" 400 -
+[August 21, 2023 13:00:18 India Standard Time] [INFO | application2] A user performed a POST operation succesfully. >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:00:18 India Standard Time] [INFO | application2] path: /todos | method: POST | status: 200 OK | size: 118 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:00:18 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 13:00:18] "POST /todos HTTP/1.1" 200 -
+[August 21, 2023 13:00:24 India Standard Time] [INFO | application2] A user retrieved all added tasks. >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:00:24 India Standard Time] [INFO | application2] path: /todos | method: GET | status: 200 OK | size: 213 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:00:24 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 13:00:24] "GET /todos HTTP/1.1" 200 -
+[August 21, 2023 13:00:33 India Standard Time] [INFO | application2] A user retrieved all added tasks. >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:00:33 India Standard Time] [INFO | application2] path: /todos | method: GET | status: 200 OK | size: 143 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:00:33 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 13:00:33] "GET /todos?limit=2 HTTP/1.1" 200 -
+[August 21, 2023 13:01:56 India Standard Time] [INFO | application2] A user tried to DELETE a task which doesn't exist. | ID: 4 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:01:56 India Standard Time] [INFO | application2] path: /todos/4 | method: DELETE | status: 404 NOT FOUND | size: 45 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:01:56 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 13:01:56] "[33mDELETE /todos/4 HTTP/1.1[0m" 404 -
+[August 21, 2023 13:02:49 India Standard Time] [INFO | application2] A user tried to perform PATCH on a task which doesn't exist. | ID: 11 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:02:49 India Standard Time] [INFO | application2] path: /todos/11 | method: PATCH | status: 404 NOT FOUND | size: 45 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:02:49 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 13:02:49] "[33mPATCH /todos/11 HTTP/1.1[0m" 404 -
+[August 21, 2023 13:02:56 India Standard Time] [INFO | application2] A user tried to perform PATCH on a task which doesn't exist. | ID: 11 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:02:56 India Standard Time] [INFO | application2] path: /todos/11 | method: PATCH | status: 404 NOT FOUND | size: 45 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:02:56 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 13:02:56] "[33mPATCH /todos/11 HTTP/1.1[0m" 404 -
+[August 21, 2023 13:03:04 India Standard Time] [INFO | application2] A user performed a PATCH operation with bad request body. | ValidationError: {'Status': ['Not a valid boolean.'], 'bhjbgyu': ['Unknown field.']} >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:03:04 India Standard Time] [INFO | application2] path: /todos/12 | method: PATCH | status: 400 BAD REQUEST | size: 90 >>> {'request_id': '7d7a5b03-e7e9-4d9b-b6a6-0726c41fec58'}
+[August 21, 2023 13:03:04 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 13:03:04] "[31m[1mPATCH /todos/12 HTTP/1.1[0m" 400 -
+[August 21, 2023 14:17:10 India Standard Time] [INFO | _internal] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[August 21, 2023 14:17:10 India Standard Time] [INFO | _internal] [33mPress CTRL+C to quit[0m
+[August 21, 2023 14:17:10 India Standard Time] [INFO | _internal]  * Restarting with stat
+[August 21, 2023 14:17:11 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 21, 2023 14:17:11 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275
+[August 21, 2023 14:17:31 India Standard Time] [INFO | application2] A user visited the home page >>> {'request_id': '7ddfe40d-72e0-487e-985f-c2245de74578'}
+[August 21, 2023 14:17:31 India Standard Time] [INFO | application2] path: / | method: GET | status: 200 OK | size: 12 >>> {'request_id': '7ddfe40d-72e0-487e-985f-c2245de74578'}
+[August 21, 2023 14:17:31 India Standard Time] [INFO | _internal] 127.0.0.1 - - [21/Aug/2023 14:17:31] "GET / HTTP/1.1" 200 -
+[August 27, 2023 14:33:52 India Standard Time] [INFO | _internal] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[August 27, 2023 14:33:52 India Standard Time] [INFO | _internal] [33mPress CTRL+C to quit[0m
+[August 27, 2023 14:33:52 India Standard Time] [INFO | _internal]  * Restarting with stat
+[August 27, 2023 14:33:52 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 27, 2023 14:33:52 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275
+[August 27, 2023 14:34:39 India Standard Time] [INFO | _internal] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[August 27, 2023 14:34:39 India Standard Time] [INFO | _internal] [33mPress CTRL+C to quit[0m
+[August 27, 2023 14:34:39 India Standard Time] [INFO | _internal]  * Restarting with stat
+[August 27, 2023 14:34:40 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 27, 2023 14:34:40 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275
+[August 27, 2023 14:35:07 India Standard Time] [INFO | application2] A user visited the home page >>>
+[August 27, 2023 14:35:07 India Standard Time] [INFO | application2] path: / | method: GET | status: 200 OK | size: 12 >>>
+[August 27, 2023 14:35:07 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 14:35:07] "GET / HTTP/1.1" 200 -
+[August 27, 2023 14:35:10 India Standard Time] [INFO | application2] A user tried to retrieve all tasks when 0 tasks were added. >>>
+[August 27, 2023 14:35:10 India Standard Time] [INFO | application2] path: /todos | method: GET | status: 200 OK | size: 37 >>>
+[August 27, 2023 14:35:10 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 14:35:10] "GET /todos HTTP/1.1" 200 -
+[August 27, 2023 14:35:30 India Standard Time] [INFO | application2] A user performed a POST operation succesfully. >>>
+[August 27, 2023 14:35:30 India Standard Time] [INFO | application2] path: /todos | method: POST | status: 200 OK | size: 118 >>>
+[August 27, 2023 14:35:30 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 14:35:30] "POST /todos HTTP/1.1" 200 -
+[August 27, 2023 14:35:36 India Standard Time] [INFO | application2] A user retrieved all added tasks. >>>
+[August 27, 2023 14:35:36 India Standard Time] [INFO | application2] path: /todos | method: GET | status: 200 OK | size: 72 >>>
+[August 27, 2023 14:35:36 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 14:35:36] "GET /todos HTTP/1.1" 200 -
+[August 27, 2023 14:36:18 India Standard Time] [INFO | _internal] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[August 27, 2023 14:36:18 India Standard Time] [INFO | _internal] [33mPress CTRL+C to quit[0m
+[August 27, 2023 14:36:18 India Standard Time] [INFO | _internal]  * Restarting with stat
+[August 27, 2023 14:36:19 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 27, 2023 14:36:19 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275
+[August 27, 2023 15:31:47 India Standard Time] [INFO | _internal] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[August 27, 2023 15:31:47 India Standard Time] [INFO | _internal] [33mPress CTRL+C to quit[0m
+[August 27, 2023 15:31:47 India Standard Time] [INFO | _internal]  * Restarting with stat
+[August 27, 2023 15:31:47 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 27, 2023 15:31:47 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275
+[August 27, 2023 15:31:55 India Standard Time] [INFO | application2] A user visited the home page >>>
+[August 27, 2023 15:31:55 India Standard Time] [INFO | application2] path: / | method: GET | status: 200 OK | size: 12 >>>
+[August 27, 2023 15:31:55 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 15:31:55] "GET / HTTP/1.1" 200 -
+[August 27, 2023 15:31:59 India Standard Time] [INFO | application2] A user tried to retrieve all tasks when 0 tasks were added. >>>
+[August 27, 2023 15:31:59 India Standard Time] [INFO | application2] path: /todos | method: GET | status: 200 OK | size: 37 >>>
+[August 27, 2023 15:31:59 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 15:31:59] "GET /todos HTTP/1.1" 200 -
+[August 27, 2023 15:32:15 India Standard Time] [INFO | application2] A user performed a POST operation succesfully. >>>
+[August 27, 2023 15:32:15 India Standard Time] [INFO | application2] path: /todos | method: POST | status: 200 OK | size: 118 >>>
+[August 27, 2023 15:32:15 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 15:32:15] "POST /todos HTTP/1.1" 200 -
+[August 27, 2023 15:32:18 India Standard Time] [INFO | application2] A user retrieved all added tasks. >>>
+[August 27, 2023 15:32:18 India Standard Time] [INFO | application2] path: /todos | method: GET | status: 200 OK | size: 73 >>>
+[August 27, 2023 15:32:18 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 15:32:18] "GET /todos HTTP/1.1" 200 -
+[August 27, 2023 15:34:28 India Standard Time] [INFO | _internal]  * Detected change in 'C:\\Users\\Atharva\\.vscode\\python_assignments\\Flask_Assignment\\application3.py', reloading
+[August 27, 2023 15:34:28 India Standard Time] [INFO | _internal]  * Restarting with stat
+[August 27, 2023 15:34:28 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 27, 2023 15:34:28 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275

@@ -1,0 +1,115 @@
+# SQLAlchemy:
+--DETAILED NOTES ARE PRESENT IN THE SAME FOLDER--
+
+SQLAlchemy is a powerful Object-Relational Mapping (ORM) library for Python. It provides a high-level, Pythonic way to interact with relational 
+databases. Instead of writing raw SQL queries, you define your database structure and relationships using Python classes and objects.
+
+
+# Key concepts of SQLAlchemy:
+--DETAILED NOTES ARE PRESENT IN THE SAME FOLDER--
+
+1)SQL Expression Language: SQLAlchemy provides an SQL Expression Language that allows you to build SQL queries using Python objects and methods. 
+This enables you to construct complex queries in a more intuitive and Pythonic way.
+
+2)ORM: SQLAlchemy's ORM allows you to define Python classes that map to database tables. These classes are used to interact with the database, 
+and you can perform CRUD (Create, Read, Update, Delete) operations using Python methods.
+
+3)Session: SQLAlchemy provides a Session object that acts as a transactional environment for interactions with the database. It tracks changes 
+to objects and applies them to the database when you commit the session.
+
+flask_sqlalchemy:
+flask_sqlalchemy is a Flask extension that integrates SQLAlchemy with Flask applications. It simplifies the process of using SQLAlchemy within 
+your Flask projects and provides tools for easily creating database models and working with database sessions.
+
+# Let's go through the steps of using flask_sqlalchemy along with SQLAlchemy:
+
+i) Installation:
+Install both Flask-SQLAlchemy and SQLAlchemy using pip:
+
+"""CODE"""
+pip install Flask-SQLAlchemy SQLAlchemy
+"""CODE"""
+
+ii) Creating a Flask Application:
+Start by creating a basic Flask application:
+
+"""CODE"""
+from flask import Flask
+app = Flask(__name__)
+"""CODE"""
+
+iii) Configuring Database URI:
+Configure the database URI, which specifies the database type, location, and credentials. Add this to your Flask app configuration:
+
+"""CODE"""
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'  # SQLite example
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To suppress warning
+"""CODE"""
+
+iv) Initializing flask_sqlalchemy:
+Initialize the flask_sqlalchemy extension with your app:
+
+"""CODE"""
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy(app)
+"""CODE"""
+
+v) Defining Database Models:
+Define your database models using SQLAlchemy's ORM:
+
+"""CODE"""
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
+    def __repr__(self):
+        return f'<User {self.username}>'
+
+"""CODE"""
+
+vi) Creating the Database:
+Create the database and its tables using the db.create_all() method:
+
+"""CODE"""
+with app.app_context():
+    db.create_all()
+"""CODE"""
+
+vii) Using the Session:
+You can use the db.session object to perform database operations:
+
+"""CODE"""
+new_user = User(username='john', email='john@example.com')
+db.session.add(new_user)
+db.session.commit()
+"""CODE"""
+
+viii) Querying the Database:
+Perform queries using SQLAlchemy's query methods:
+
+"""CODE"""
+user = User.query.filter_by(username='john').first()
+"""CODE"""
+
+ix) Updating and Deleting:
+Update and delete records using the session:
+
+"""CODE"""
+user.username = 'new_username'
+db.session.commit()
+
+db.session.delete(user)
+db.session.commit()
+"""CODE"""
+
+x) Close the Session:
+Close the session after using it:
+
+"""CODE"""
+db.session.close()
+"""CODE"""
+
+
+By using flask_sqlalchemy and SQLAlchemy, you can interact with databases in a more Pythonic way. You define your models as Python classes, 
+perform database operations using Python methods, and SQLAlchemy handles the translation of your Python code into SQL queries.

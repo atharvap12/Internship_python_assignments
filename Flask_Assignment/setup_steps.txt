@@ -1,0 +1,13 @@
+1) "pip3 install virtualenv" - Requirement satisfied.
+2) "python -m virtualenv venv" - Created virtual environment named 'venv'.
+3) "venv\Scripts\activate" - Activated the venv.
+4) "pip3 install flask"
+5) "pip3 install flask-sqlalchemy"
+6) "pip3 freeze > requirements.txt" - Generated Requirements.txt file
+7) Created "application.py" as my flask app outside venv in the Flask_Assignment directory.
+
+8) "set FLASK_APP=application"  --> This should be done everytime to close and reopen the terminal. It sets the environment variable temporarily.
+9) "set FLASK_ENV=development"  --> This should be done everytime to close and reopen the terminal. It sets the environment variable temporarily.
+
+10) SAVE THE CHANGES IN application.py --VERY IMPORTANT--
+11) "flask run"

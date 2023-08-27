@@ -1,0 +1,211 @@
+The Task.query expression returns an instance of the Query class, which is used to build and execute database queries. 
+The Query class provides methods that correspond to various SQL operations like filtering, ordering, and more.
+
+Here's what you need to understand:
+
+i) Query Object: Task.query returns an instance of the Query class, which represents a query to be executed against the database.
+
+ii) Chaining: You can chain methods onto the query object to specify the operations you want to perform. For example, you can chain filter(), 
+order_by(), and other methods to customize the query. When you use the .query attribute on a model class, it returns an instance of the Query 
+class. You can chain various methods onto this Query object to construct a complex query. For example, you can use .filter() to add filtering 
+conditions, .order_by() to specify sorting orders, and other methods to customize the query. This allows you to build up a query incrementally 
+by applying multiple operations in a sequence.
+
+Example of Chaining:
+------------------------------------------CODE----------------------------------------------------
+
+# Chaining filter and order_by methods
+tasks = Task.query.filter(Task.status == True).order_by(Task.title).all()
+------------------------------------------CODE----------------------------------------------------
+
+
+iii) Deferred Execution: The actual database query is executed only when you access the results (e.g., using .all(), .first(), .one(), etc.). 
+Until then, you're building up a query plan.The query execution is deferred until you actually request the results. This means that when you 
+create a query using the .query object, SQLAlchemy doesn't immediately perform the database query. Instead, it builds up a query plan by 
+chaining methods. The actual query is executed only when you access the results using methods like .all(), .first(), .one(), etc. This deferred 
+execution allows SQLAlchemy to optimize the query and load only the data you need.
+
+Example of Deferred Execution:
+
+------------------------------------------CODE----------------------------------------------------
+
+# Building a query without executing it
+query = Task.query.filter(Task.status == True)
+
+# Execute the query and fetch the results
+tasks = query.all()
+------------------------------------------CODE----------------------------------------------------
+
+
+iv) Model Class: The query is associated with the model class (Task in this case), so it knows which table to operate on and how to map the 
+data.
+
+v) Lazy Loading: The query uses "lazy loading," which means it only fetches data from the database when you actually request it. 
+This is a key feature of SQLAlchemy's ORM.Lazy loading is a crucial feature of SQLAlchemy's ORM. It means that data is fetched from the 
+database only when it's actually needed. This approach minimizes unnecessary database queries and improves performance. When you access the 
+results of a query using methods like .all(), SQLAlchemy fetches the required data from the database at that moment.
+
+Example of Lazy Loading:
+
+------------------------------------------CODE----------------------------------------------------
+
+# Creating a query, but no actual query execution yet
+query = Task.query.filter(Task.status == True)
+
+# Accessing the results triggers the database query
+tasks = query.all()
+------------------------------------------CODE----------------------------------------------------
+
+
+So, when you use query = Task.query, you're creating a query object that's ready to be customized and executed against the Task table in 
+the database. It doesn't immediately retrieve any data from the database; instead, it's a blueprint for constructing a query.
+
+Regarding your understanding of Task.query.all(), you're correct. Calling .all() on a query object will execute the query and return a 
+list of objects of the model class, in this case, a list of Task objects.
+
+In summary, Task.query is a query object that serves as a starting point for constructing database queries related to the Task model. 
+It allows you to define operations and conditions that will be applied when the query is executed.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+VARIOUS ATTRIBUTES AND METHODS OF THE 'Task.query' OBJECT : 
+
+i) Attributes:
+
+1) .all(): Returns a list of all the results from the query.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+tasks = Task.query.all()  # Retrieves all tasks from the database
+------------------------------------------CODE----------------------------------------------------
+
+
+2) .first(): Returns the first result from the query.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+task = Task.query.first()  # Retrieves the first task from the database
+------------------------------------------CODE----------------------------------------------------
+
+3) .one(): Returns exactly one result from the query. Raises an exception if no or more than one result is found.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+task = Task.query.filter(Task.title == 'Complete Assignment').one()
+------------------------------------------CODE----------------------------------------------------
+
+4) .filter(): Applies filtering conditions to the query.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+tasks = Task.query.filter(Task.status == True).all()  # Retrieves tasks with status=True
+------------------------------------------CODE----------------------------------------------------
+
+5) .order_by(): Specifies the ordering of results.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+tasks = Task.query.order_by(Task.title).all()  # Retrieves tasks ordered by title
+------------------------------------------CODE----------------------------------------------------
+
+6) .count(): Returns the number of results from the query.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+task_count = Task.query.count()  # Retrieves the number of tasks in the database
+------------------------------------------CODE----------------------------------------------------
+
+7) .get(): Retrieves a single record based on the primary key value.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+task = Task.query.get(1)  # Retrieves a task with primary key value 1
+------------------------------------------CODE----------------------------------------------------
+
+
+ii) Methods:
+
+1) .filter(): Applies filtering conditions to the query.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+tasks = Task.query.filter(Task.status == True).all()  # Filter tasks with status=True
+------------------------------------------CODE----------------------------------------------------
+
+2) .order_by(): Specifies the ordering of results.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+tasks = Task.query.order_by(Task.title).all()  # Order tasks by title
+------------------------------------------CODE----------------------------------------------------
+
+3) .group_by(): Groups the results based on a column.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+from sqlalchemy import func
+grouped_tasks = Task.query.group_by(Task.status).all()  # Group tasks by status
+------------------------------------------CODE----------------------------------------------------
+
+4) .limit(): Limits the number of results returned.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+limited_tasks = Task.query.limit(5).all()  # Retrieve the first 5 tasks
+------------------------------------------CODE----------------------------------------------------
+
+5) .offset(): Skips a certain number of results.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+paginated_tasks = Task.query.offset(10).limit(5).all()  # Retrieve tasks from 11 to 15
+------------------------------------------CODE----------------------------------------------------
+
+6) .join(): Performs joins with related tables.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+tasks_with_users = Task.query.join(User).all()  # Join tasks and users tables
+------------------------------------------CODE----------------------------------------------------
+
+7) .distinct(): Removes duplicate results.
+
+Example:
+
+------------------------------------------CODE----------------------------------------------------
+
+distinct_titles = Task.query.distinct(Task.title).all()  # Retrieve distinct task titles
+------------------------------------------CODE----------------------------------------------------
+
+
+
+These are some of the attributes and methods of the Task.query instance. They allow you to construct and customize queries for 
+interacting with the database using SQLAlchemy in your Flask app. You can chain these attributes and methods to create complex queries 
+tailored to your application's requirements.

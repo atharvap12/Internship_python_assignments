@@ -3,7 +3,7 @@ def lengthOfLIS(nums: list[int]) -> int:
         #Here lis = [] is the list in which lis[i] contains the length of the Longest Increasing Subsequence(LIS) which ends at nums[i].
         #In essesnce, lis[i] is the length of LIS till nums[i].
 
-        lis = [1] * len(nums) #Min. length of Longest Increasing Subsequence(LIS) till 'i'th index will always be 1.
+        lis = [1] * len(nums) #Minimum length of Longest Increasing Subsequence(LIS) till 'i'th index will always be 1.
         max_l = 0
         for i in range(len(nums)):
             for prev in range(i):
