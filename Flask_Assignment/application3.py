@@ -102,6 +102,7 @@ def getall():
     title_filter = request.args.get('title')
     status_filter = request.args.get('status')
     limit_val = request.args.get('limit', default=None, type=int)
+    offset_val = request.args.get('offset', default=None, type=int)
 
     if title_filter is not None:
         query = query.filter(Task.Title.ilike(f'%{title_filter}%'))
@@ -110,6 +111,8 @@ def getall():
         status_filter = status_filter.lower() == 'true'  # Convert to bool
         query = query.filter(Task.Status == status_filter)
 
+    if offset_val is not None:
+        query = query.offset(offset_val)
 
     tasks = query.limit(limit_val).all() if limit_val is not None else query.all()
 
@@ -253,7 +256,7 @@ def patch_task(id):
                 t.Status = status
 
             db.session.commit()
-            
+
             myapp.logger.info(
                 "A user performed PUT operation on a task successfully. | ID: %s >>>", id
             )

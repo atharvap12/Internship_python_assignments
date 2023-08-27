@@ -1,0 +1,15 @@
+[August 27, 2023 22:44:19 India Standard Time] [INFO | _internal] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[August 27, 2023 22:44:19 India Standard Time] [INFO | _internal] [33mPress CTRL+C to quit[0m
+[August 27, 2023 22:44:19 India Standard Time] [INFO | _internal]  * Restarting with stat
+[August 27, 2023 22:44:19 India Standard Time] [WARNING | _internal]  * Debugger is active!
+[August 27, 2023 22:44:19 India Standard Time] [INFO | _internal]  * Debugger PIN: 128-433-275
+[August 27, 2023 22:44:28 India Standard Time] [INFO | application3] A user retrieved all added tasks. >>>
+[August 27, 2023 22:44:28 India Standard Time] [INFO | application3] path: /todos | method: GET | status: 200 OK | size: 245 >>>
+[August 27, 2023 22:44:28 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 22:44:28] "GET /todos HTTP/1.1" 200 -
+[August 27, 2023 22:44:57 India Standard Time] [INFO | application3] A user retrieved all added tasks. >>>
+[August 27, 2023 22:44:57 India Standard Time] [INFO | application3] path: /todos | method: GET | status: 200 OK | size: 143 >>>
+[August 27, 2023 22:44:57 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 22:44:57] "GET /todos?offset=2 HTTP/1.1" 200 -
+[August 27, 2023 22:45:10 India Standard Time] [INFO | application3] A user retrieved all added tasks. >>>
+[August 27, 2023 22:45:10 India Standard Time] [INFO | application3] path: /todos | method: GET | status: 200 OK | size: 95 >>>
+[August 27, 2023 22:45:10 India Standard Time] [INFO | _internal] 127.0.0.1 - - [27/Aug/2023 22:45:10] "GET /todos?limit=2&offset=2 HTTP/1.1" 200 -
